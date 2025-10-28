@@ -7,6 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA2D53982EB0D0740047A4A9 /* BiddingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53942EB0D0730047A4A9 /* BiddingGuideView.swift */; };
+		EA2D53992EB0D0740047A4A9 /* ScoringSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53902EB0D0730047A4A9 /* ScoringSystem.swift */; };
+		EA2D539A2EB0D0740047A4A9 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53962EB0D0730047A4A9 /* PracticeView.swift */; };
+		EA2D539B2EB0D0740047A4A9 /* BridgeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D538F2EB0D0730047A4A9 /* BridgeModels.swift */; };
+		EA2D539C2EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53952EB0D0730047A4A9 /* BiddingTutorialView.swift */; };
+		EA2D539D2EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D538E2EB0D0730047A4A9 /* BridgeGameManager.swift */; };
+		EA2D539E2EB0D0740047A4A9 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53922EB0D0730047A4A9 /* AppConfig.swift */; };
+		EA2D539F2EB0D0740047A4A9 /* BiddingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53942EB0D0730047A4A9 /* BiddingGuideView.swift */; };
+		EA2D53A02EB0D0740047A4A9 /* ScoringSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53902EB0D0730047A4A9 /* ScoringSystem.swift */; };
+		EA2D53A12EB0D0740047A4A9 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53962EB0D0730047A4A9 /* PracticeView.swift */; };
+		EA2D53A22EB0D0740047A4A9 /* BridgeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D538F2EB0D0730047A4A9 /* BridgeModels.swift */; };
+		EA2D53A32EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53952EB0D0730047A4A9 /* BiddingTutorialView.swift */; };
+		EA2D53A42EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D538E2EB0D0730047A4A9 /* BridgeGameManager.swift */; };
+		EA2D53A52EB0D0740047A4A9 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53922EB0D0730047A4A9 /* AppConfig.swift */; };
+		EA2D53A62EB0D0740047A4A9 /* BiddingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53942EB0D0730047A4A9 /* BiddingGuideView.swift */; };
+		EA2D53A72EB0D0740047A4A9 /* ScoringSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53902EB0D0730047A4A9 /* ScoringSystem.swift */; };
+		EA2D53A82EB0D0740047A4A9 /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53962EB0D0730047A4A9 /* PracticeView.swift */; };
+		EA2D53A92EB0D0740047A4A9 /* BridgeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D538F2EB0D0730047A4A9 /* BridgeModels.swift */; };
+		EA2D53AA2EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53952EB0D0730047A4A9 /* BiddingTutorialView.swift */; };
+		EA2D53AB2EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D538E2EB0D0730047A4A9 /* BridgeGameManager.swift */; };
+		EA2D53AC2EB0D0740047A4A9 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2D53922EB0D0730047A4A9 /* AppConfig.swift */; };
 		EABA80712EB0AD04005D3974 /* BridgeTutorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA80702EB0AD04005D3974 /* BridgeTutorApp.swift */; };
 		EABA80732EB0AD04005D3974 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA80722EB0AD04005D3974 /* ContentView.swift */; };
 		EABA80752EB0AD07005D3974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EABA80742EB0AD07005D3974 /* Assets.xcassets */; };
@@ -34,6 +55,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA2D538E2EB0D0730047A4A9 /* BridgeGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeGameManager.swift; sourceTree = "<group>"; };
+		EA2D538F2EB0D0730047A4A9 /* BridgeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeModels.swift; sourceTree = "<group>"; };
+		EA2D53902EB0D0730047A4A9 /* ScoringSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoringSystem.swift; sourceTree = "<group>"; };
+		EA2D53922EB0D0730047A4A9 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		EA2D53942EB0D0730047A4A9 /* BiddingGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiddingGuideView.swift; sourceTree = "<group>"; };
+		EA2D53952EB0D0730047A4A9 /* BiddingTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiddingTutorialView.swift; sourceTree = "<group>"; };
+		EA2D53962EB0D0730047A4A9 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		EABA806D2EB0AD04005D3974 /* BridgeTutor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BridgeTutor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABA80702EB0AD04005D3974 /* BridgeTutorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTutorApp.swift; sourceTree = "<group>"; };
 		EABA80722EB0AD04005D3974 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +99,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA2D53912EB0D0730047A4A9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D538E2EB0D0730047A4A9 /* BridgeGameManager.swift */,
+				EA2D538F2EB0D0730047A4A9 /* BridgeModels.swift */,
+				EA2D53902EB0D0730047A4A9 /* ScoringSystem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EA2D53932EB0D0730047A4A9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D53922EB0D0730047A4A9 /* AppConfig.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		EA2D53972EB0D0730047A4A9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EA2D53942EB0D0730047A4A9 /* BiddingGuideView.swift */,
+				EA2D53952EB0D0730047A4A9 /* BiddingTutorialView.swift */,
+				EA2D53962EB0D0730047A4A9 /* PracticeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		EABA80642EB0AD04005D3974 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +150,9 @@
 		EABA806F2EB0AD04005D3974 /* BridgeTutor */ = {
 			isa = PBXGroup;
 			children = (
+				EA2D53912EB0D0730047A4A9 /* Models */,
+				EA2D53932EB0D0730047A4A9 /* Utils */,
+				EA2D53972EB0D0730047A4A9 /* Views */,
 				EABA80702EB0AD04005D3974 /* BridgeTutorApp.swift */,
 				EABA80722EB0AD04005D3974 /* ContentView.swift */,
 				EABA80742EB0AD07005D3974 /* Assets.xcassets */,
@@ -258,6 +317,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EABA80732EB0AD04005D3974 /* ContentView.swift in Sources */,
+				EA2D53982EB0D0740047A4A9 /* BiddingGuideView.swift in Sources */,
+				EA2D53992EB0D0740047A4A9 /* ScoringSystem.swift in Sources */,
+				EA2D539A2EB0D0740047A4A9 /* PracticeView.swift in Sources */,
+				EA2D539B2EB0D0740047A4A9 /* BridgeModels.swift in Sources */,
+				EA2D539C2EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */,
+				EA2D539D2EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */,
+				EA2D539E2EB0D0740047A4A9 /* AppConfig.swift in Sources */,
 				EABA80712EB0AD04005D3974 /* BridgeTutorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +333,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EABA80822EB0AD08005D3974 /* BridgeTutorTests.swift in Sources */,
+				EA2D539F2EB0D0740047A4A9 /* BiddingGuideView.swift in Sources */,
+				EA2D53A02EB0D0740047A4A9 /* ScoringSystem.swift in Sources */,
+				EA2D53A12EB0D0740047A4A9 /* PracticeView.swift in Sources */,
+				EA2D53A22EB0D0740047A4A9 /* BridgeModels.swift in Sources */,
+				EA2D53A32EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */,
+				EA2D53A42EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */,
+				EA2D53A52EB0D0740047A4A9 /* AppConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +348,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EABA808E2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift in Sources */,
+				EA2D53A62EB0D0740047A4A9 /* BiddingGuideView.swift in Sources */,
+				EA2D53A72EB0D0740047A4A9 /* ScoringSystem.swift in Sources */,
+				EA2D53A82EB0D0740047A4A9 /* PracticeView.swift in Sources */,
+				EA2D53A92EB0D0740047A4A9 /* BridgeModels.swift in Sources */,
+				EA2D53AA2EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */,
+				EA2D53AB2EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */,
+				EA2D53AC2EB0D0740047A4A9 /* AppConfig.swift in Sources */,
 				EABA808C2EB0AD08005D3974 /* BridgeTutorUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
