@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EABA80712EB0AD04005D3974 /* BridgeTutorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA80702EB0AD04005D3974 /* BridgeTutorApp.swift */; };
+		EABA80732EB0AD04005D3974 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA80722EB0AD04005D3974 /* ContentView.swift */; };
+		EABA80752EB0AD07005D3974 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EABA80742EB0AD07005D3974 /* Assets.xcassets */; };
+		EABA80782EB0AD07005D3974 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EABA80772EB0AD07005D3974 /* Preview Assets.xcassets */; };
+		EABA80822EB0AD08005D3974 /* BridgeTutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA80812EB0AD08005D3974 /* BridgeTutorTests.swift */; };
+		EABA808C2EB0AD08005D3974 /* BridgeTutorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA808B2EB0AD08005D3974 /* BridgeTutorUITests.swift */; };
+		EABA808E2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA808D2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EABA807E2EB0AD08005D3974 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EABA80652EB0AD04005D3974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EABA806C2EB0AD04005D3974;
+			remoteInfo = BridgeTutor;
+		};
+		EABA80882EB0AD08005D3974 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EABA80652EB0AD04005D3974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EABA806C2EB0AD04005D3974;
+			remoteInfo = BridgeTutor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EABA806D2EB0AD04005D3974 /* BridgeTutor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BridgeTutor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EABA80702EB0AD04005D3974 /* BridgeTutorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTutorApp.swift; sourceTree = "<group>"; };
+		EABA80722EB0AD04005D3974 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EABA80742EB0AD07005D3974 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EABA80772EB0AD07005D3974 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EABA807D2EB0AD08005D3974 /* BridgeTutorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BridgeTutorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EABA80812EB0AD08005D3974 /* BridgeTutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTutorTests.swift; sourceTree = "<group>"; };
+		EABA80872EB0AD08005D3974 /* BridgeTutorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BridgeTutorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EABA808B2EB0AD08005D3974 /* BridgeTutorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTutorUITests.swift; sourceTree = "<group>"; };
+		EABA808D2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTutorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EABA806A2EB0AD04005D3974 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EABA807A2EB0AD08005D3974 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EABA80842EB0AD08005D3974 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EABA80642EB0AD04005D3974 = {
+			isa = PBXGroup;
+			children = (
+				EABA806F2EB0AD04005D3974 /* BridgeTutor */,
+				EABA80802EB0AD08005D3974 /* BridgeTutorTests */,
+				EABA808A2EB0AD08005D3974 /* BridgeTutorUITests */,
+				EABA806E2EB0AD04005D3974 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EABA806E2EB0AD04005D3974 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EABA806D2EB0AD04005D3974 /* BridgeTutor.app */,
+				EABA807D2EB0AD08005D3974 /* BridgeTutorTests.xctest */,
+				EABA80872EB0AD08005D3974 /* BridgeTutorUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EABA806F2EB0AD04005D3974 /* BridgeTutor */ = {
+			isa = PBXGroup;
+			children = (
+				EABA80702EB0AD04005D3974 /* BridgeTutorApp.swift */,
+				EABA80722EB0AD04005D3974 /* ContentView.swift */,
+				EABA80742EB0AD07005D3974 /* Assets.xcassets */,
+				EABA80762EB0AD07005D3974 /* Preview Content */,
+			);
+			path = BridgeTutor;
+			sourceTree = "<group>";
+		};
+		EABA80762EB0AD07005D3974 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EABA80772EB0AD07005D3974 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EABA80802EB0AD08005D3974 /* BridgeTutorTests */ = {
+			isa = PBXGroup;
+			children = (
+				EABA80812EB0AD08005D3974 /* BridgeTutorTests.swift */,
+			);
+			path = BridgeTutorTests;
+			sourceTree = "<group>";
+		};
+		EABA808A2EB0AD08005D3974 /* BridgeTutorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EABA808B2EB0AD08005D3974 /* BridgeTutorUITests.swift */,
+				EABA808D2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift */,
+			);
+			path = BridgeTutorUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EABA806C2EB0AD04005D3974 /* BridgeTutor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EABA80912EB0AD08005D3974 /* Build configuration list for PBXNativeTarget "BridgeTutor" */;
+			buildPhases = (
+				EABA80692EB0AD04005D3974 /* Sources */,
+				EABA806A2EB0AD04005D3974 /* Frameworks */,
+				EABA806B2EB0AD04005D3974 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BridgeTutor;
+			productName = BridgeTutor;
+			productReference = EABA806D2EB0AD04005D3974 /* BridgeTutor.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EABA807C2EB0AD08005D3974 /* BridgeTutorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EABA80942EB0AD08005D3974 /* Build configuration list for PBXNativeTarget "BridgeTutorTests" */;
+			buildPhases = (
+				EABA80792EB0AD08005D3974 /* Sources */,
+				EABA807A2EB0AD08005D3974 /* Frameworks */,
+				EABA807B2EB0AD08005D3974 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EABA807F2EB0AD08005D3974 /* PBXTargetDependency */,
+			);
+			name = BridgeTutorTests;
+			productName = BridgeTutorTests;
+			productReference = EABA807D2EB0AD08005D3974 /* BridgeTutorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EABA80862EB0AD08005D3974 /* BridgeTutorUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EABA80972EB0AD08005D3974 /* Build configuration list for PBXNativeTarget "BridgeTutorUITests" */;
+			buildPhases = (
+				EABA80832EB0AD08005D3974 /* Sources */,
+				EABA80842EB0AD08005D3974 /* Frameworks */,
+				EABA80852EB0AD08005D3974 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EABA80892EB0AD08005D3974 /* PBXTargetDependency */,
+			);
+			name = BridgeTutorUITests;
+			productName = BridgeTutorUITests;
+			productReference = EABA80872EB0AD08005D3974 /* BridgeTutorUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EABA80652EB0AD04005D3974 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					EABA806C2EB0AD04005D3974 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					EABA807C2EB0AD08005D3974 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = EABA806C2EB0AD04005D3974;
+					};
+					EABA80862EB0AD08005D3974 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = EABA806C2EB0AD04005D3974;
+					};
+				};
+			};
+			buildConfigurationList = EABA80682EB0AD04005D3974 /* Build configuration list for PBXProject "BridgeTutor" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EABA80642EB0AD04005D3974;
+			productRefGroup = EABA806E2EB0AD04005D3974 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EABA806C2EB0AD04005D3974 /* BridgeTutor */,
+				EABA807C2EB0AD08005D3974 /* BridgeTutorTests */,
+				EABA80862EB0AD08005D3974 /* BridgeTutorUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EABA806B2EB0AD04005D3974 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EABA80782EB0AD07005D3974 /* Preview Assets.xcassets in Resources */,
+				EABA80752EB0AD07005D3974 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EABA807B2EB0AD08005D3974 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EABA80852EB0AD08005D3974 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EABA80692EB0AD04005D3974 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EABA80732EB0AD04005D3974 /* ContentView.swift in Sources */,
+				EABA80712EB0AD04005D3974 /* BridgeTutorApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EABA80792EB0AD08005D3974 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EABA80822EB0AD08005D3974 /* BridgeTutorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EABA80832EB0AD08005D3974 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EABA808E2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift in Sources */,
+				EABA808C2EB0AD08005D3974 /* BridgeTutorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EABA807F2EB0AD08005D3974 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EABA806C2EB0AD04005D3974 /* BridgeTutor */;
+			targetProxy = EABA807E2EB0AD08005D3974 /* PBXContainerItemProxy */;
+		};
+		EABA80892EB0AD08005D3974 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EABA806C2EB0AD04005D3974 /* BridgeTutor */;
+			targetProxy = EABA80882EB0AD08005D3974 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EABA808F2EB0AD08005D3974 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EABA80902EB0AD08005D3974 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EABA80922EB0AD08005D3974 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BridgeTutor/Preview Content\"";
+				DEVELOPMENT_TEAM = 627WHJVS45;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vorisdevelopment.BridgeTutor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EABA80932EB0AD08005D3974 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BridgeTutor/Preview Content\"";
+				DEVELOPMENT_TEAM = 627WHJVS45;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vorisdevelopment.BridgeTutor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EABA80952EB0AD08005D3974 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 627WHJVS45;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vorisdevelopment.BridgeTutorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BridgeTutor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BridgeTutor";
+			};
+			name = Debug;
+		};
+		EABA80962EB0AD08005D3974 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 627WHJVS45;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vorisdevelopment.BridgeTutorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BridgeTutor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BridgeTutor";
+			};
+			name = Release;
+		};
+		EABA80982EB0AD08005D3974 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 627WHJVS45;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vorisdevelopment.BridgeTutorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BridgeTutor;
+			};
+			name = Debug;
+		};
+		EABA80992EB0AD08005D3974 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 627WHJVS45;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vorisdevelopment.BridgeTutorUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BridgeTutor;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EABA80682EB0AD04005D3974 /* Build configuration list for PBXProject "BridgeTutor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EABA808F2EB0AD08005D3974 /* Debug */,
+				EABA80902EB0AD08005D3974 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EABA80912EB0AD08005D3974 /* Build configuration list for PBXNativeTarget "BridgeTutor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EABA80922EB0AD08005D3974 /* Debug */,
+				EABA80932EB0AD08005D3974 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EABA80942EB0AD08005D3974 /* Build configuration list for PBXNativeTarget "BridgeTutorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EABA80952EB0AD08005D3974 /* Debug */,
+				EABA80962EB0AD08005D3974 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EABA80972EB0AD08005D3974 /* Build configuration list for PBXNativeTarget "BridgeTutorUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EABA80982EB0AD08005D3974 /* Debug */,
+				EABA80992EB0AD08005D3974 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EABA80652EB0AD04005D3974 /* Project object */;
+}
