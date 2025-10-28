@@ -15,16 +15,28 @@ struct PracticeView: View {
                 .font(.headline)
 
             ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 8) {
-                    ForEach(gameManager.currentHand.cards.sorted(by: { a, b in
-                        if a.suit.order != b.suit.order { return a.suit.order > b.suit.order }
-                        return a.rank.value > b.rank.value
-                    }), id: \.id) { card in
-                        Text(card.displayName)
-                            .foregroundColor(card.suit.color == .red ? .red : .primary)
-                            .frame(width: 44, height: 60)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(8)
+                VStack(alignment: .leading, spacing: 12) {
+                    ForEach([Suit.spades, .hearts, .diamonds, .clubs], id: \.self) { suit in
+                        let cards = gameManager.currentHand.cards
+                            .filter { $0.suit == suit }
+                            .sorted { $0.rank.value > $1.rank.value }
+
+                        if !cards.isEmpty {
+                            HStack(alignment: .center, spacing: 8) {
+                                Text(suit.rawValue)
+                                    .font(.headline)
+                                    .foregroundColor((suit == .hearts || suit == .diamonds) ? .red : .primary)
+
+                                ForEach(cards, id: \.id) { card in
+                                    Text(card.displayName)
+                                        .foregroundColor(card.suit.color == .red ? .red : .primary)
+                                        .frame(width: 44, height: 60)
+                                        .background(Color(.systemGray6))
+                                        .cornerRadius(8)
+                                }
+                                Spacer(minLength: 0)
+                            }
+                        }
                     }
                 }
                 .padding(.horizontal)
