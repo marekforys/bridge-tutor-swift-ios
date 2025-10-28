@@ -18,6 +18,7 @@ struct PracticeView: View {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 8) {
                     ForEach(gameManager.currentHand.cards, id: \.id) { card in
                         Text(card.displayName)
+                            .foregroundColor(card.suit.color == .red ? .red : .primary)
                             .frame(width: 44, height: 60)
                             .background(Color(.systemGray6))
                             .cornerRadius(8)
