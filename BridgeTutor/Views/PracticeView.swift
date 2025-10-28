@@ -16,7 +16,10 @@ struct PracticeView: View {
 
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 8) {
-                    ForEach(gameManager.currentHand.cards, id: \.id) { card in
+                    ForEach(gameManager.currentHand.cards.sorted(by: { a, b in
+                        if a.suit.order != b.suit.order { return a.suit.order > b.suit.order }
+                        return a.rank.value > b.rank.value
+                    }), id: \.id) { card in
                         Text(card.displayName)
                             .foregroundColor(card.suit.color == .red ? .red : .primary)
                             .frame(width: 44, height: 60)
