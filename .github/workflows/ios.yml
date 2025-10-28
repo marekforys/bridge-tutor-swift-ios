@@ -19,7 +19,7 @@ jobs:
         id: select
         run: |
           if ls -A | grep -i \.xcworkspace$ >/dev/null; then echo "filetype=workspace" >> $GITHUB_OUTPUT && echo "file=$(ls -A | grep -i \.xcworkspace$ | head -1)" >> $GITHUB_OUTPUT; else echo "filetype=project" >> $GITHUB_OUTPUT && echo "file=$(ls -A | grep -i \.xcodeproj$ | head -1)" >> $GITHUB_OUTPUT; fi
-          echo "device=iPhone 15" >> $GITHUB_OUTPUT
+          echo "device=iPhone SE (3rd generation)" >> $GITHUB_OUTPUT
 
       - name: Resolve scheme or target
         id: resolve
