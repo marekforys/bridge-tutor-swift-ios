@@ -25,26 +25,52 @@ class BridgeGameManager: ObservableObject {
     @Published var gameState: GameState = .bidding
     @Published var contract: Contract?
     @Published var vulnerability: Vulnerability = .none
+    @Published var userSeat: Player = .south
+
+    private var playerHands: [Player: Hand] = [:]
 
     private let deck = createDeck()
 
     init() { dealNewHand() }
 
     func dealNewHand() {
-        let shuffled = deck.shuffled()
-        currentHand = Hand(cards: Array(shuffled.prefix(13)))
+        // Deal 13 cards to each player
+        var shuffled = deck.shuffled()
+        var hands: [Player: [Card]] = [.north: [], .east: [], .south: [], .west: []]
+        let order: [Player] = [.north, .east, .south, .west]
+        var idx = 0
+        while idx < 52 {
+            for p in order { if idx < 52 { hands[p, default: []].append(shuffled[idx]); idx += 1 } }
+        }
+        playerHands = hands.mapValues { Hand(cards: $0) }
+
+        // Set user's current hand
+        if let hand = playerHands[userSeat] { currentHand = hand }
+
+        // Reset auction state
         biddingHistory = []
-        currentPlayer = .north
+        currentPlayer = .north // dealer can be enhanced later
         gameState = .bidding
         contract = nil
+
+        // Let AI bid until it's user's turn
+        maybeAutoAdvance()
     }
 
     func makeBid(_ bidType: BidType) {
+        appendBid(bidType)
+        if isAuctionComplete() {
+            finalizeContract()
+            return
+        }
+        // After a user bid, let AI respond until it's user's turn again
+        maybeAutoAdvance()
+    }
+
+    private func appendBid(_ bidType: BidType) {
         let bid = Bid(player: currentPlayer, bid: bidType)
         biddingHistory.append(bid)
-
-        if isAuctionComplete() { finalizeContract() }
-        else { currentPlayer = currentPlayer.next }
+        if !isAuctionComplete() { currentPlayer = currentPlayer.next }
     }
 
     private func isAuctionComplete() -> Bool {
@@ -89,11 +115,17 @@ class BridgeGameManager: ObservableObject {
         }
     }
 
+    // Suggestion for the user's hand (for UI hint)
     func getSuggestedBid() -> BidType? {
-        let hcp = currentHand.highCardPoints
-        let longest = currentHand.longestSuit
-        let len = currentHand.longestSuitLength
-        let balanced = currentHand.isBalanced
+        return suggestBid(for: currentHand)
+    }
+
+    // Core suggestion logic used by AI and UI
+    private func suggestBid(for hand: Hand) -> BidType {
+        let hcp = hand.highCardPoints
+        let len = hand.longestSuitLength
+        let balanced = hand.isBalanced
+        let longest = hand.longestSuit
 
         if hcp >= 15 && hcp <= 17 && balanced { return .contract(level: 1, strain: .notrump) }
         if hcp >= 12 {
@@ -109,5 +141,20 @@ class BridgeGameManager: ObservableObject {
             return .contract(level: 2, strain: strain)
         }
         return .pass
+    }
+
+    // Advance AI bids until it is user's turn or auction completes
+    private func maybeAutoAdvance() {
+        // Keep currentHand synced to user's seat
+        if let hand = playerHands[userSeat] { currentHand = hand }
+
+        while currentPlayer != userSeat && !isAuctionComplete() {
+            guard let hand = playerHands[currentPlayer] else { break }
+            var bid = suggestBid(for: hand)
+            if !isValidBid(bid) { bid = .pass }
+            appendBid(bid)
+        }
+
+        if isAuctionComplete() { finalizeContract() }
     }
 }
