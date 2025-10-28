@@ -18,7 +18,7 @@ struct BiddingGuideView: View {
             ForEach(0..<sections.count, id: \.self) { i in
                 Section(header: Text(sections[i].title)) {
                     ForEach(sections[i].items, id: \.self) { item in
-                        Text(item)
+                        coloredSuitText(item)
                     }
                 }
             }
@@ -26,6 +26,15 @@ struct BiddingGuideView: View {
         .listStyle(.insetGrouped)
         .navigationTitle("Bidding Guide")
     }
+}
+
+private func coloredSuitText(_ text: String) -> Text {
+    var combined = Text("")
+    for ch in text {
+        let t = Text(String(ch)).foregroundColor((ch == "♥" || ch == "♦") ? .red : .primary)
+        combined = combined + t
+    }
+    return combined
 }
 
 #Preview {
