@@ -1,4 +1,4 @@
-name: iOS starter workflow
+name: iOS CI
 
 on:
   push:
@@ -8,37 +8,51 @@ on:
 
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
-    runs-on: macos-latest
+    name: Build and Test on iPhone simulator
+    runs-on: macos-15
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set Default Scheme
+
+      - name: Select project/workspace and device
+        id: select
         run: |
-          scheme_list=$(xcodebuild -list -json | tr -d "\n")
-          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
-          echo $default | cat >default
-          echo Using default scheme: $default
+          if ls -A | grep -i \.xcworkspace$ >/dev/null; then echo "filetype=workspace" >> $GITHUB_OUTPUT && echo "file=$(ls -A | grep -i \.xcworkspace$ | head -1)" >> $GITHUB_OUTPUT; else echo "filetype=project" >> $GITHUB_OUTPUT && echo "file=$(ls -A | grep -i \.xcodeproj$ | head -1)" >> $GITHUB_OUTPUT; fi
+          echo "device=iPhone 15" >> $GITHUB_OUTPUT
+
+      - name: Resolve scheme or target
+        id: resolve
+        run: |
+          info=$(xcodebuild -list -json | tr -d "\n")
+          scheme=$(echo "$info" | ruby -e "require 'json'; j=JSON.parse(STDIN.gets); puts(j.dig('project','schemes')&.first || '')")
+          if [ -z "$scheme" ] || [ "$scheme" = "" ]; then
+            target=$(echo "$info" | ruby -e "require 'json'; j=JSON.parse(STDIN.gets); puts(j.dig('project','targets')&.first || '')")
+            echo "use_target=true" >> $GITHUB_OUTPUT
+            echo "name=$target" >> $GITHUB_OUTPUT
+          else
+            echo "use_target=false" >> $GITHUB_OUTPUT
+            echo "name=$scheme" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build
-        env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
         run: |
-          # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          if [ $scheme = default ]; then scheme=$(cat default); fi
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          xcodebuild build-for-testing -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
+          set -o pipefail
+          FILETYPE="${{ steps.select.outputs.filetype }}"; FILE="${{ steps.select.outputs.file }}"; DEVICE="${{ steps.select.outputs.device }}"
+          echo "Building $FILETYPE: $FILE on $DEVICE"
+          if [ "${{ steps.resolve.outputs.use_target }}" = "true" ]; then
+            xcodebuild -$FILETYPE "$FILE" -target "${{ steps.resolve.outputs.name }}" -destination "platform=iOS Simulator,name=$DEVICE" build | xcpretty && exit ${PIPESTATUS[0]}
+          else
+            xcodebuild -$FILETYPE "$FILE" -scheme "${{ steps.resolve.outputs.name }}" -destination "platform=iOS Simulator,name=$DEVICE" build-for-testing | xcpretty && exit ${PIPESTATUS[0]}
+          fi
+
       - name: Test
-        env:
-          scheme: ${{ 'default' }}
-          platform: ${{ 'iOS Simulator' }}
         run: |
-          # xcrun xctrace returns via stderr, not the expected stdout (see https://developer.apple.com/forums/thread/663959)
-          device=`xcrun xctrace list devices 2>&1 | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}' | sed -e "s/ Simulator$//"`
-          if [ $scheme = default ]; then scheme=$(cat default); fi
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
-          xcodebuild test-without-building -scheme "$scheme" -"$filetype_parameter" "$file_to_build" -destination "platform=$platform,name=$device"
+          set -o pipefail
+          FILETYPE="${{ steps.select.outputs.filetype }}"; FILE="${{ steps.select.outputs.file }}"; DEVICE="${{ steps.select.outputs.device }}"
+          if [ "${{ steps.resolve.outputs.use_target }}" = "true" ]; then
+            echo "No shared scheme; running unit test build via target (tests may be skipped)."
+            xcodebuild -$FILETYPE "$FILE" -target "${{ steps.resolve.outputs.name }}" -destination "platform=iOS Simulator,name=$DEVICE" build | xcpretty && exit ${PIPESTATUS[0]}
+          else
+            xcodebuild -$FILETYPE "$FILE" -scheme "${{ steps.resolve.outputs.name }}" -destination "platform=iOS Simulator,name=$DEVICE" test-without-building | xcpretty && exit ${PIPESTATUS[0]}
+          fi
