@@ -5,6 +5,25 @@ struct BiddingTutorialView: View {
 
     var body: some View {
         List {
+            Section(header: Text("Systems")) {
+                NavigationLink(destination: PolishClubTutorialView()) {
+                    Text("Polish Club")
+                }
+            }
+            Section(header: Text("Conventions")) {
+                NavigationLink(destination: ConventionsTutorialView()) {
+                    Text("Common Conventions")
+                }
+            }
+        }
+        .listStyle(.insetGrouped)
+        .navigationTitle("Tutorials")
+    }
+}
+
+struct PolishClubTutorialView: View {
+    var body: some View {
+        List {
             Section(header: Text("Polish Club — basics")) {
                 coloredSuitText("1♣: strong, artificial (typically 12+ HCP, wide range)")
                 coloredSuitText("1♦: natural, 4+ ♦, ~11–17 HCP")
@@ -55,7 +74,37 @@ struct BiddingTutorialView: View {
             }
         }
         .listStyle(.insetGrouped)
-        .navigationTitle("Tutorials")
+        .navigationTitle("Polish Club")
+    }
+}
+
+struct ConventionsTutorialView: View {
+    var body: some View {
+        List {
+            Section(header: Text("Stayman over 1NT")) {
+                coloredSuitText("2♣: asks for a 4‑card major (after 1NT)")
+                coloredSuitText("2♦: denies any 4‑card major")
+                coloredSuitText("2♥: shows 4♥ (may also hold 4♠)")
+                coloredSuitText("2♠: shows 4♠; with 4‑4 majors, bid 2♦ then 2♥ per style")
+                coloredSuitText("Responder: invite/game decisions based on fits and HCP")
+            }
+
+            Section(header: Text("Jacoby transfers over 1NT")) {
+                coloredSuitText("2♦: transfer to ♥; opener bids 2♥")
+                coloredSuitText("2♥: transfer to ♠; opener bids 2♠")
+                coloredSuitText("Responder follow‑ups: invite with 2NT/3M; GF with 3M or new suit")
+                coloredSuitText("Super‑accepts: opener may jump with 4‑card support and max")
+            }
+
+            Section(header: Text("RKCB 1430 (simplified)")) {
+                coloredSuitText("4NT: keycard ask in agreed trump suit")
+                coloredSuitText("5♣: 1 or 4 keycards; 5♦: 0 or 3 keycards")
+                coloredSuitText("5♥: Q‑trump ask or specific king asks per partnership style")
+                coloredSuitText("Control bidding: cue first‑round controls before keycard when helpful")
+            }
+        }
+        .listStyle(.insetGrouped)
+        .navigationTitle("Conventions")
     }
 }
 
