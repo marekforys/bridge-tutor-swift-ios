@@ -9,6 +9,12 @@ struct BiddingTutorialView: View {
                 NavigationLink(destination: PolishClubTutorialView()) {
                     Text("Polish Club")
                 }
+                NavigationLink(destination: StandardAmericanTutorialView()) {
+                    Text("Standard American")
+                }
+                NavigationLink(destination: TwoOverOneTutorialView()) {
+                    Text("2/1 Game Forcing")
+                }
             }
             Section(header: Text("Conventions")) {
                 NavigationLink(destination: ConventionsTutorialView()) {
@@ -137,6 +143,52 @@ struct ConventionsTutorialView: View {
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Conventions")
+    }
+}
+
+struct StandardAmericanTutorialView: View {
+    var body: some View {
+        List {
+            Section(header: Text("Basics")) {
+                coloredSuitText("Natural 5‑card majors (1♥/1♠ show 5+)")
+                coloredSuitText("1NT: 15–17 HCP balanced (common); 2NT: 20–21")
+                coloredSuitText("1♣/1♦: natural minors, typically 3+ cards")
+            }
+            Section(header: Text("Openings")) {
+                coloredSuitText("1♥/1♠: 5+ cards, 12–21 HCP")
+                coloredSuitText("1♣/1♦: 12–21 HCP, 3+ cards (better minor if 3‑3)")
+                coloredSuitText("1NT: 15–17 balanced; 2NT: 20–21 balanced")
+            }
+            Section(header: Text("Responses")) {
+                coloredSuitText("Raise with support (single raise = 6–9, limit = 10–12)")
+                coloredSuitText("New suit at 1‑level: 6+ HCP, 4+ suit; at 2‑level: 10+ HCP")
+                coloredSuitText("1NT response: 6–9 HCP, no good suit")
+            }
+        }
+        .listStyle(.insetGrouped)
+        .navigationTitle("Standard American")
+    }
+}
+
+struct TwoOverOneTutorialView: View {
+    var body: some View {
+        List {
+            Section(header: Text("Basics")) {
+                coloredSuitText("2/1 responses (e.g., 1♠–2♦) create a game‑forcing auction")
+                coloredSuitText("Still uses 5‑card majors; many pairs play forcing 1NT")
+            }
+            Section(header: Text("Openings & responses")) {
+                coloredSuitText("1♥/1♠: 5+; responder’s 2/1 = GF with 12+ and 5+ suit")
+                coloredSuitText("Forcing 1NT (semi‑forcing): 1♥/1♠–1NT shows ~6–12 balanced")
+                coloredSuitText("Minor openings: natural; 2/1 over minors less common")
+            }
+            Section(header: Text("Continuations")) {
+                coloredSuitText("Opener clarifies shape/strength; early minor‑suit 3‑level bids often GF")
+                coloredSuitText("Use cue‑bids/splinters to show shortness and slam interest")
+            }
+        }
+        .listStyle(.insetGrouped)
+        .navigationTitle("2/1 Game Forcing")
     }
 }
 
