@@ -209,25 +209,41 @@ class BridgeGameManager: ObservableObject {
         // Prevent any further bidding after the auction is complete
         if isAuctionComplete() { return false }
         if biddingHistory.isEmpty { return true }
-        guard let lastBid = lastNonPassBid() else { return true }
-
+        
+        // Find the last contract bid (skip passes, doubles, redoubles)
+        guard let lastContractBid = biddingHistory.last(where: { $0.bid.isContract })?.bid else {
+            // No contract bids yet, anything is valid
+            return true
+        }
+        
         switch bidType {
         case .pass:
             return true
+            
         case .double:
-            if case .contract = lastBid.bid { return lastBid.player != currentPlayer }
-            return false
+            // Can only double opponent's contract
+            guard case .contract = lastContractBid else { return false }
+            return lastBidByOpponent()?.bid.isContract == true
+            
         case .redouble:
-            if case .double = lastBid.bid { return lastBid.player != currentPlayer }
-            return false
-        case .contract(let level, let strain):
-            if case .contract(let lastLevel, let lastStrain) = lastBid.bid {
-                if level > lastLevel { return true }
-                if level == lastLevel { return strain.order > lastStrain.order }
-                return false
-            }
+            // Can only redouble if partner was doubled
+            guard let lastBid = biddingHistory.last,
+                  case .double = lastBid.bid,
+                  lastBid.player != currentPlayer && lastBid.player != currentPlayer.partner else { return false }
             return true
+            
+        case .contract(let level, let strain):
+            // Must be higher than the last contract bid
+            guard case .contract(let lastLevel, let lastStrain) = lastContractBid else { return true }
+            if level > lastLevel { return true }
+            if level == lastLevel { return strain.order > lastStrain.order }
+            return false
         }
+    }
+    
+    private func lastBidByOpponent() -> Bid? {
+        guard let lastBid = biddingHistory.last else { return nil }
+        return lastBid.player != currentPlayer && lastBid.player != currentPlayer.partner ? lastBid : nil
     }
 
     func getSuggestedBid() -> BidType? {
