@@ -7,7 +7,18 @@ struct PracticeView: View {
     @State private var showingBidSheet: Bool = false
 
     var body: some View {
-        VStack(spacing: 12) {
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.02, green: 0.35, blue: 0.18),
+                    Color(red: 0.04, green: 0.45, blue: 0.24)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            VStack(spacing: 12) {
             HStack {
                 Button("New Hand") { gameManager.dealNewHand() }
                     .buttonStyle(.bordered)
@@ -158,9 +169,10 @@ struct PracticeView: View {
                 .foregroundColor(.secondary)
 
             Spacer()
+            }
+            .padding()
+            .navigationTitle("Practice")
         }
-        .padding()
-        .navigationTitle("Practice")
     }
 }
 

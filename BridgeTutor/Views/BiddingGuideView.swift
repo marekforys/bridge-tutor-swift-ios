@@ -14,16 +14,29 @@ struct BiddingGuideView: View {
     ]
 
     var body: some View {
-        List {
-            ForEach(0..<sections.count, id: \.self) { i in
-                Section(header: Text(sections[i].title)) {
-                    ForEach(sections[i].items, id: \.self) { item in
-                        coloredSuitText(item)
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.02, green: 0.35, blue: 0.18),
+                    Color(red: 0.04, green: 0.45, blue: 0.24)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            List {
+                ForEach(0..<sections.count, id: \.self) { i in
+                    Section(header: Text(sections[i].title)) {
+                        ForEach(sections[i].items, id: \.self) { item in
+                            coloredSuitText(item)
+                        }
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .listStyle(.insetGrouped)
         }
-        .listStyle(.insetGrouped)
         .navigationTitle("Bidding Guide")
     }
 }

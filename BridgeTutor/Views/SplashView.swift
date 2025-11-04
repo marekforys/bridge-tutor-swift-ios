@@ -6,7 +6,14 @@ struct SplashView: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color(.systemBackground), Color(.secondarySystemBackground)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.02, green: 0.35, blue: 0.18),
+                    Color(red: 0.04, green: 0.45, blue: 0.24)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
@@ -20,10 +27,11 @@ struct SplashView: View {
                 Text("Bridge Bidding Tutor")
                     .font(.title)
                     .fontWeight(.semibold)
+                    .foregroundColor(.white)
 
                 Text("Systems • Conventions • Practice")
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white.opacity(0.85))
             }
             .scaleEffect(scale)
             .opacity(opacity)
