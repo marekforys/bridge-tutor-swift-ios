@@ -197,31 +197,122 @@ class BridgeGameManager: ObservableObject {
         }
     }
 
-    // Suggestion for the user's hand (for UI hint)
     func getSuggestedBid() -> BidType? {
-        return suggestBid(for: currentHand)
+        let ctx = buildAuctionContext(for: userSeat)
+        return suggestBid(for: currentHand, player: userSeat, context: ctx)
     }
 
-    // Core suggestion logic used by AI and UI
-    private func suggestBid(for hand: Hand) -> BidType {
+    private struct AuctionContext {
+        let player: Player
+        let partner: Player
+        let partnerLast: BidType?
+        let ourLast: BidType?
+        let oppLast: BidType?
+        let lastContract: (player: Player, level: Int, strain: Strain)?
+        let isCompetitive: Bool
+        let weOpened: Bool
+        let partnerOpened: Bool
+    }
+
+    private func buildAuctionContext(for player: Player) -> AuctionContext {
+        let partner = player.partner
+
+        func lastBid(by p: Player) -> BidType? {
+            return biddingHistory.last(where: { $0.player == p })?.bid
+        }
+
+        func lastContractBid() -> (player: Player, level: Int, strain: Strain)? {
+            guard let b = biddingHistory.last(where: { $0.bid.isContract }) else { return nil }
+            if case .contract(let l, let s) = b.bid { return (b.player, l, s) }
+            return nil
+        }
+
+        let partnerLast = lastBid(by: partner)
+        let ourLast = lastBid(by: player)
+        let oppLast = biddingHistory.last(where: { $0.player != player && $0.player != partner })?.bid
+        let lastC = lastContractBid()
+
+        let weOpened = biddingHistory.first(where: { $0.bid.isContract })?.player == player || biddingHistory.first(where: { $0.bid.isContract })?.player == partner
+        let partnerOpened = biddingHistory.first(where: { $0.player == partner && $0.bid.isContract }) != nil
+        let isCompetitive = biddingHistory.contains(where: { $0.player != player && $0.player != partner && $0.bid.isContract })
+
+        return AuctionContext(player: player, partner: partner, partnerLast: partnerLast, ourLast: ourLast, oppLast: oppLast, lastContract: lastC, isCompetitive: isCompetitive, weOpened: weOpened, partnerOpened: partnerOpened)
+    }
+
+    private func suggestBid(for hand: Hand, player: Player, context: AuctionContext) -> BidType {
         let hcp = hand.highCardPoints
-        let len = hand.longestSuitLength
         let balanced = hand.isBalanced
         let longest = hand.longestSuit
+        let counts: [Suit: Int] = [
+            .spades: hand.cards.filter { $0.suit == .spades }.count,
+            .hearts: hand.cards.filter { $0.suit == .hearts }.count,
+            .diamonds: hand.cards.filter { $0.suit == .diamonds }.count,
+            .clubs: hand.cards.filter { $0.suit == .clubs }.count
+        ]
 
-        if hcp >= 15 && hcp <= 17 && balanced { return .contract(level: 1, strain: .notrump) }
-        if hcp >= 12 {
-            if let suit = longest, len >= 5 {
-                let strain: Strain = (suit == .hearts ? .hearts : suit == .spades ? .spades : suit == .diamonds ? .diamonds : .clubs)
-                return .contract(level: 1, strain: strain)
+        func strainFrom(_ suit: Suit) -> Strain { suit == .spades ? .spades : suit == .hearts ? .hearts : suit == .diamonds ? .diamonds : .clubs }
+
+        if biddingHistory.isEmpty || biddingHistory.allSatisfy({ if case .pass = $0.bid { return true } else { return false } }) {
+            if hcp >= 15 && hcp <= 17 && balanced { return .contract(level: 1, strain: .notrump) }
+            if hcp >= 12 {
+                if let s = [.spades, .hearts].first(where: { counts[$0, default: 0] >= 5 }) { return .contract(level: 1, strain: strainFrom(s)) }
+                if let s = longest { return .contract(level: 1, strain: strainFrom(s)) }
+                if balanced { return .contract(level: 1, strain: .notrump) }
             }
-            if balanced { return .contract(level: 1, strain: .notrump) }
+            if hcp >= 20 && balanced { return .contract(level: 2, strain: .notrump) }
+            if let s = longest, counts[s, default: 0] >= 6, hcp >= 6 { return .contract(level: 2, strain: strainFrom(s)) }
+            return .pass
         }
-        if hcp >= 20 && balanced { return .contract(level: 2, strain: .notrump) }
-        if hcp >= 6 && len >= 6, let suit = longest {
-            let strain: Strain = (suit == .hearts ? .hearts : suit == .spades ? .spades : suit == .diamonds ? .diamonds : .clubs)
-            return .contract(level: 2, strain: strain)
+
+        if case .contract(let lvl, let strain)? = context.partnerLast {
+            if strain == .hearts || strain == .spades {
+                let need = (strain == .hearts ? counts[.hearts, default: 0] : counts[.spades, default: 0])
+                if need >= 3 {
+                    if hcp >= 13 { return .contract(level: lvl + 3 >= 4 ? 4 : lvl + 1, strain: strain) }
+                    if hcp >= 10 { return .contract(level: lvl + 2, strain: strain) }
+                    if hcp >= 6 { return .contract(level: lvl + 1, strain: strain) }
+                }
+            }
+            if strain == .clubs || strain == .diamonds {
+                let suit: Suit = (strain == .clubs ? .clubs : .diamonds)
+                if counts[suit, default: 0] >= 3 {
+                    if hcp >= 13 { return .contract(level: lvl + 2, strain: strain) }
+                    if hcp >= 10 { return .contract(level: lvl + 1, strain: strain) }
+                }
+            }
+            if balanced {
+                if hcp >= 13 { return .contract(level: 3, strain: .notrump) }
+                if hcp >= 10 { return .contract(level: 2, strain: .notrump) }
+                if hcp >= 6 { return .contract(level: 1, strain: .notrump) }
+            }
+            if let s = [.spades, .hearts, .diamonds, .clubs].first(where: { counts[$0, default: 0] >= 5 }) {
+                return .contract(level: max(1, lvl), strain: strainFrom(s))
+            }
+            return .pass
         }
+
+        if let opp = context.oppLast {
+            if case .contract(_, let oppStrain) = opp {
+                if let major = [.spades, .hearts].first(where: { counts[$0, default: 0] >= 5 }), hcp >= 8 {
+                    return .contract(level: 1, strain: strainFrom(major))
+                }
+                let oppSuit: Suit? = (oppStrain == .spades ? .spades : oppStrain == .hearts ? .hearts : oppStrain == .diamonds ? .diamonds : oppStrain == .clubs ? .clubs : nil)
+                if hcp >= 12, let o = oppSuit, hand.cards.filter({ $0.suit == o }).count <= 2 {
+                    return .double
+                }
+            }
+        }
+
+        if let our = context.ourLast, case .contract(let lvl, let strain) = our {
+            if let s = [.spades, .hearts].first(where: { counts[$0, default: 0] >= 5 && strainFrom($0) != strain }) {
+                return .contract(level: max(1, lvl), strain: strainFrom(s))
+            }
+            if balanced {
+                if hcp >= 18 { return .contract(level: 2, strain: .notrump) }
+                if hcp >= 12 { return .contract(level: 1, strain: .notrump) }
+            }
+        }
+
         return .pass
     }
 
@@ -232,7 +323,8 @@ class BridgeGameManager: ObservableObject {
 
         while currentPlayer != userSeat && !isAuctionComplete() {
             guard let hand = playerHands[currentPlayer] else { break }
-            var bid = suggestBid(for: hand)
+            let ctx = buildAuctionContext(for: currentPlayer)
+            var bid = suggestBid(for: hand, player: currentPlayer, context: ctx)
             if !isValidBid(bid) { bid = .pass }
             appendBid(bid)
         }
