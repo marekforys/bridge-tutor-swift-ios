@@ -72,6 +72,22 @@ struct PolishClubTutorialView: View {
                 coloredSuitText("1♣ – 1♦; 1NT – 2NT: 18–19 bal; invitational values by responder")
                 coloredSuitText("1♣ – 1♠; 2♣ – 3♣: GF with clubs agreed, exploring slam")
             }
+
+            Section {
+                NavigationLink(destination: PracticeView()) {
+                    HStack {
+                        Spacer()
+                        Text("Practice this")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                        Spacer()
+                    }
+                }
+            }
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Polish Club")
@@ -101,6 +117,22 @@ struct ConventionsTutorialView: View {
                 coloredSuitText("5♣: 1 or 4 keycards; 5♦: 0 or 3 keycards")
                 coloredSuitText("5♥: Q‑trump ask or specific king asks per partnership style")
                 coloredSuitText("Control bidding: cue first‑round controls before keycard when helpful")
+            }
+
+            Section {
+                NavigationLink(destination: PracticeView()) {
+                    HStack {
+                        Spacer()
+                        Text("Practice this")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                        Spacer()
+                    }
+                }
             }
         }
         .listStyle(.insetGrouped)
