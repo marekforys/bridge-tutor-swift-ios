@@ -23,6 +23,7 @@ struct PracticeView: View {
                 Button("New Hand") { gameManager.dealNewHand() }
                     .buttonStyle(.bordered)
                 Spacer()
+                SystemBadge(system: gameManager.activeSystem)
             }
 
             Text("Your Hand (\(gameManager.currentHand.highCardPoints) HCP)")
@@ -259,4 +260,25 @@ private func menuBidLabel(level: Int, strain: Strain) -> some View {
 #Preview {
     PracticeView()
         .environmentObject(BridgeGameManager())
+}
+
+private struct SystemBadge: View {
+    let system: BridgeGameManager.BiddingSystem
+    private func label(for sys: BridgeGameManager.BiddingSystem) -> String {
+        switch sys {
+        case .standardAmerican: return "Standard American"
+        case .polishClub: return "Polish Club"
+        case .twoOverOne: return "2/1 GF"
+        }
+    }
+    var body: some View {
+        Text(label(for: system))
+            .font(.caption2)
+            .foregroundColor(.white)
+            .padding(.vertical, 4)
+            .padding(.horizontal, 8)
+            .background(Color.white.opacity(0.15))
+            .overlay(RoundedRectangle(cornerRadius: 9).stroke(Color.white.opacity(0.2), lineWidth: 1))
+            .cornerRadius(9)
+    }
 }

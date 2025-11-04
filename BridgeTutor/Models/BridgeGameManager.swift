@@ -37,12 +37,24 @@ class BridgeGameManager: ObservableObject {
     @Published var vulnerability: Vulnerability = .none
     @Published var userSeat: Player = .south
     @Published var practicePreset: PracticePreset? = nil
+    // Active bidding system selection
+    enum BiddingSystem: String, CaseIterable, Codable { case standardAmerican, polishClub, twoOverOne }
+    @Published var activeSystem: BiddingSystem = .standardAmerican {
+        didSet {
+            UserDefaults.standard.set(activeSystem.rawValue, forKey: "activeSystem")
+        }
+    }
 
     private var playerHands: [Player: Hand] = [:]
 
     private let deck = createDeck()
 
-    init() { dealNewHand() }
+    init() {
+        if let saved = UserDefaults.standard.string(forKey: "activeSystem"), let sys = BiddingSystem(rawValue: saved) {
+            activeSystem = sys
+        }
+        dealNewHand()
+    }
 
     func dealNewHand() {
         // Attempt biased dealing if a preset is set
@@ -252,19 +264,53 @@ class BridgeGameManager: ObservableObject {
 
         func strainFrom(_ suit: Suit) -> Strain { suit == .spades ? .spades : suit == .hearts ? .hearts : suit == .diamonds ? .diamonds : .clubs }
 
+        // OPENING LOGIC (depends on system)
         if biddingHistory.isEmpty || biddingHistory.allSatisfy({ if case .pass = $0.bid { return true } else { return false } }) {
-            if hcp >= 15 && hcp <= 17 && balanced { return .contract(level: 1, strain: .notrump) }
-            if hcp >= 12 {
-                if let s = [.spades, .hearts].first(where: { counts[$0, default: 0] >= 5 }) { return .contract(level: 1, strain: strainFrom(s)) }
-                if let s = longest { return .contract(level: 1, strain: strainFrom(s)) }
-                if balanced { return .contract(level: 1, strain: .notrump) }
+            switch activeSystem {
+            case .polishClub:
+                // Strong 1♣ opener (simplified): any strong hand 16+ HCP
+                if hcp >= 16 { return .contract(level: 1, strain: .clubs) }
+                // Otherwise natural openings similar to SA
+                if hcp >= 12 {
+                    if let s = [.spades, .hearts].first(where: { counts[$0, default: 0] >= 5 }) { return .contract(level: 1, strain: strainFrom(s)) }
+                    if let s = longest { return .contract(level: 1, strain: strainFrom(s)) }
+                    if balanced { return .contract(level: 1, strain: .notrump) }
+                }
+                if hcp >= 20 && balanced { return .contract(level: 2, strain: .notrump) }
+                if let s = longest, counts[s, default: 0] >= 6, hcp >= 6 { return .contract(level: 2, strain: strainFrom(s)) }
+                return .pass
+
+            case .standardAmerican, .twoOverOne:
+                if hcp >= 15 && hcp <= 17 && balanced { return .contract(level: 1, strain: .notrump) }
+                if hcp >= 12 {
+                    if let s = [.spades, .hearts].first(where: { counts[$0, default: 0] >= 5 }) { return .contract(level: 1, strain: strainFrom(s)) }
+                    if let s = longest { return .contract(level: 1, strain: strainFrom(s)) }
+                    if balanced { return .contract(level: 1, strain: .notrump) }
+                }
+                if hcp >= 20 && balanced { return .contract(level: 2, strain: .notrump) }
+                if let s = longest, counts[s, default: 0] >= 6, hcp >= 6 { return .contract(level: 2, strain: strainFrom(s)) }
+                return .pass
             }
-            if hcp >= 20 && balanced { return .contract(level: 2, strain: .notrump) }
-            if let s = longest, counts[s, default: 0] >= 6, hcp >= 6 { return .contract(level: 2, strain: strainFrom(s)) }
-            return .pass
         }
 
+        // PARTNER RESPONSES (depends on system)
         if case .contract(let lvl, let strain)? = context.partnerLast {
+            // Polish Club responses to 1♣ (very simplified)
+            if activeSystem == .polishClub, lvl == 1, strain == .clubs {
+                if hcp <= 7 { return .contract(level: 1, strain: .diamonds) } // waiting/negative 1♦
+                if hcp >= 8 {
+                    if counts[.hearts, default: 0] >= 4 { return .contract(level: 1, strain: .hearts) }
+                    if counts[.spades, default: 0] >= 4 { return .contract(level: 1, strain: .spades) }
+                    if balanced { return .contract(level: 1, strain: .notrump) }
+                }
+            }
+
+            // 2/1 GF style: after partner opens 1♥/1♠, with 12+ and a good new suit, prefer 2-level new suit (creates GF)
+            if activeSystem == .twoOverOne, lvl == 1, (strain == .hearts || strain == .spades) {
+                let newSuits: [Suit] = [.clubs, .diamonds].filter { counts[$0, default: 0] >= 4 }
+                if hcp >= 12, let ns = newSuits.first { return .contract(level: 2, strain: strainFrom(ns)) }
+            }
+
             if strain == .hearts || strain == .spades {
                 let need = (strain == .hearts ? counts[.hearts, default: 0] : counts[.spades, default: 0])
                 if need >= 3 {

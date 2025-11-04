@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showSettings = false
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -62,8 +64,18 @@ struct ContentView: View {
 
                     Spacer()
                 }
+                .overlay(alignment: .topTrailing) {
+                    Button(action: { showSettings = true }) {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundColor(.white)
+                            .padding(12)
+                    }
+                }
             }
             .navigationBarHidden(true)
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+            }
         }
     }
 }
@@ -162,6 +174,58 @@ private struct SimpleCardView: View {
 
 private func isRedSuit(_ text: String) -> Bool {
     text.contains("♥") || text.contains("♦")
+}
+
+private struct SettingsView: View {
+    @EnvironmentObject var gameManager: BridgeGameManager
+    @Environment(\.dismiss) private var dismiss
+    @State private var selection: BridgeGameManager.BiddingSystem = .standardAmerican
+
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.02, green: 0.35, blue: 0.18),
+                    Color(red: 0.04, green: 0.45, blue: 0.24)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            NavigationView {
+                List {
+                    Section(header: Text("Bidding System").foregroundColor(.white)) {
+                        Picker("System", selection: $selection) {
+                            ForEach(BridgeGameManager.BiddingSystem.allCases, id: \.self) { sys in
+                                Text(label(for: sys)).tag(sys)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .onChange(of: selection) { newValue in
+                            gameManager.activeSystem = newValue
+                        }
+                        .onAppear { selection = gameManager.activeSystem }
+                    }
+                }
+                .scrollContentBackground(.hidden)
+                .navigationTitle("Settings")
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Done") { dismiss() }
+                    }
+                }
+            }
+        }
+    }
+
+    private func label(for sys: BridgeGameManager.BiddingSystem) -> String {
+        switch sys {
+        case .standardAmerican: return "Standard American"
+        case .polishClub: return "Polish Club"
+        case .twoOverOne: return "2/1 GF"
+        }
+    }
 }
 
 #Preview {
