@@ -184,6 +184,65 @@ struct PracticeView: View {
     }
 }
 
+private struct CenterInfoPanel: View {
+    let dealer: Player
+    let vulnerability: String
+    let contract: String?
+
+    var body: some View {
+        VStack(spacing: 8) {
+            VStack(spacing: 6) {
+                Text("Dealer")
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.9))
+                CompassBadge(label: dealerLabel(dealer))
+                Divider().background(Color.white.opacity(0.2))
+                Text("Vulnerability")
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.9))
+                CompassBadge(label: vulnerability)
+                if let contract = contract {
+                    Divider().background(Color.white.opacity(0.2))
+                    Text("Contract")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.9))
+                    CompassBadge(label: contract)
+                }
+            }
+            .padding(12)
+            .background(Color.white.opacity(0.12))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.15), lineWidth: 1))
+            .cornerRadius(12)
+        }
+        .frame(minWidth: 120)
+    }
+
+    private func dealerLabel(_ p: Player) -> String {
+        switch p {
+        case .north: return "N"
+        case .east: return "E"
+        case .south: return "S"
+        case .west: return "W"
+        }
+    }
+}
+
+private struct CompassBadge: View {
+    let label: String
+    var body: some View {
+        Text(label)
+            .font(.caption2).bold()
+            .foregroundColor(.white)
+            .padding(.vertical, 3)
+            .padding(.horizontal, 8)
+            .background(Color.white.opacity(0.18))
+            .overlay(
+                Capsule().stroke(Color.white.opacity(0.25), lineWidth: 1)
+            )
+            .clipShape(Capsule())
+    }
+}
+
 @ViewBuilder
 private func suitColorDot(for strain: Strain) -> some View {
     let isRed = (strain == .hearts || strain == .diamonds)
@@ -308,6 +367,7 @@ private struct HandsReviewView: View {
             VStack(spacing: 16) {
                 // North (top)
                 if let hand = hand(for: .north) {
+                    CompassBadge(label: "N")
                     HandPanel(title: "North — \(hand.highCardPoints) HCP") {
                         suitRow(title: "♠", suit: .spades, hand: hand)
                         suitRow(title: "♥", suit: .hearts, hand: hand)
@@ -319,29 +379,37 @@ private struct HandsReviewView: View {
                 HStack(spacing: 16) {
                     // West (left)
                     if let hand = hand(for: .west) {
-                        HandPanel(title: "West — \(hand.highCardPoints) HCP") {
-                            suitRow(title: "♠", suit: .spades, hand: hand)
-                            suitRow(title: "♥", suit: .hearts, hand: hand)
-                            suitRow(title: "♦", suit: .diamonds, hand: hand)
-                            suitRow(title: "♣", suit: .clubs, hand: hand)
+                        VStack(spacing: 6) {
+                            CompassBadge(label: "W")
+                            HandPanel(title: "West — \(hand.highCardPoints) HCP") {
+                                suitRow(title: "♠", suit: .spades, hand: hand)
+                                suitRow(title: "♥", suit: .hearts, hand: hand)
+                                suitRow(title: "♦", suit: .diamonds, hand: hand)
+                                suitRow(title: "♣", suit: .clubs, hand: hand)
+                            }
                         }
                     }
 
-                    Spacer(minLength: 12)
+                    // Center info (dealer, vulnerability, contract)
+                    CenterInfoPanel(dealer: dealerSeat(), vulnerability: vulnerabilityLabel(), contract: contractLabel())
 
                     // East (right)
                     if let hand = hand(for: .east) {
-                        HandPanel(title: "East — \(hand.highCardPoints) HCP") {
-                            suitRow(title: "♠", suit: .spades, hand: hand)
-                            suitRow(title: "♥", suit: .hearts, hand: hand)
-                            suitRow(title: "♦", suit: .diamonds, hand: hand)
-                            suitRow(title: "♣", suit: .clubs, hand: hand)
+                        VStack(spacing: 6) {
+                            CompassBadge(label: "E")
+                            HandPanel(title: "East — \(hand.highCardPoints) HCP") {
+                                suitRow(title: "♠", suit: .spades, hand: hand)
+                                suitRow(title: "♥", suit: .hearts, hand: hand)
+                                suitRow(title: "♦", suit: .diamonds, hand: hand)
+                                suitRow(title: "♣", suit: .clubs, hand: hand)
+                            }
                         }
                     }
                 }
 
                 // South (bottom)
                 if let hand = hand(for: .south) {
+                    CompassBadge(label: "S")
                     HandPanel(title: "South — \(hand.highCardPoints) HCP") {
                         suitRow(title: "♠", suit: .spades, hand: hand)
                         suitRow(title: "♥", suit: .hearts, hand: hand)
@@ -356,6 +424,25 @@ private struct HandsReviewView: View {
     }
 
     private func hand(for player: Player) -> Hand? { gameManager.allHands()[player] }
+
+    private func dealerSeat() -> Player {
+        if let first = gameManager.biddingHistory.first { return first.player }
+        return .north
+    }
+
+    private func vulnerabilityLabel() -> String {
+        switch gameManager.vulnerability {
+        case .none: return "None"
+        case .northSouth: return "N-S"
+        case .eastWest: return "E-W"
+        case .both: return "Both"
+        }
+    }
+
+    private func contractLabel() -> String? {
+        if let c = gameManager.contract { return c.displayName }
+        return nil
+    }
 
     private func suitRow(title: String, suit: Suit, hand: Hand) -> some View {
         let cards = hand.cards
