@@ -5,6 +5,7 @@ struct PracticeView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var selectedBid: BidType? = nil
     @State private var showingBidSheet: Bool = false
+    @State private var showingAllHands: Bool = false
 
     var body: some View {
         ZStack {
@@ -21,6 +22,8 @@ struct PracticeView: View {
             VStack(spacing: 12) {
             HStack {
                 Button("New Hand") { gameManager.dealNewHand() }
+                    .buttonStyle(.bordered)
+                Button("Show All Hands") { showingAllHands = true }
                     .buttonStyle(.bordered)
                 Spacer()
                 SystemBadge(system: gameManager.activeSystem)
@@ -173,6 +176,10 @@ struct PracticeView: View {
             }
             .padding()
             .navigationTitle("Practice")
+            .sheet(isPresented: $showingAllHands) {
+                NavigationView { HandsReviewView() }
+                    .environmentObject(gameManager)
+            }
         }
     }
 }
@@ -280,5 +287,106 @@ private struct SystemBadge: View {
             .background(Color.white.opacity(0.15))
             .overlay(RoundedRectangle(cornerRadius: 9).stroke(Color.white.opacity(0.2), lineWidth: 1))
             .cornerRadius(9)
+    }
+}
+
+private struct HandsReviewView: View {
+    @EnvironmentObject var gameManager: BridgeGameManager
+
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 0.02, green: 0.35, blue: 0.18),
+                    Color(red: 0.04, green: 0.45, blue: 0.24)
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            VStack(spacing: 16) {
+                // North (top)
+                if let hand = hand(for: .north) {
+                    HandPanel(title: "North — \(hand.highCardPoints) HCP") {
+                        suitRow(title: "♠", suit: .spades, hand: hand)
+                        suitRow(title: "♥", suit: .hearts, hand: hand)
+                        suitRow(title: "♦", suit: .diamonds, hand: hand)
+                        suitRow(title: "♣", suit: .clubs, hand: hand)
+                    }
+                }
+
+                HStack(spacing: 16) {
+                    // West (left)
+                    if let hand = hand(for: .west) {
+                        HandPanel(title: "West — \(hand.highCardPoints) HCP") {
+                            suitRow(title: "♠", suit: .spades, hand: hand)
+                            suitRow(title: "♥", suit: .hearts, hand: hand)
+                            suitRow(title: "♦", suit: .diamonds, hand: hand)
+                            suitRow(title: "♣", suit: .clubs, hand: hand)
+                        }
+                    }
+
+                    Spacer(minLength: 12)
+
+                    // East (right)
+                    if let hand = hand(for: .east) {
+                        HandPanel(title: "East — \(hand.highCardPoints) HCP") {
+                            suitRow(title: "♠", suit: .spades, hand: hand)
+                            suitRow(title: "♥", suit: .hearts, hand: hand)
+                            suitRow(title: "♦", suit: .diamonds, hand: hand)
+                            suitRow(title: "♣", suit: .clubs, hand: hand)
+                        }
+                    }
+                }
+
+                // South (bottom)
+                if let hand = hand(for: .south) {
+                    HandPanel(title: "South — \(hand.highCardPoints) HCP") {
+                        suitRow(title: "♠", suit: .spades, hand: hand)
+                        suitRow(title: "♥", suit: .hearts, hand: hand)
+                        suitRow(title: "♦", suit: .diamonds, hand: hand)
+                        suitRow(title: "♣", suit: .clubs, hand: hand)
+                    }
+                }
+            }
+            .padding()
+        }
+        .navigationTitle("All Hands")
+    }
+
+    private func hand(for player: Player) -> Hand? { gameManager.allHands()[player] }
+
+    private func suitRow(title: String, suit: Suit, hand: Hand) -> some View {
+        let cards = hand.cards
+            .filter { $0.suit == suit }
+            .sorted { $0.rank.value > $1.rank.value }
+        return HStack(spacing: 8) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor((suit == .hearts || suit == .diamonds) ? .red : .primary)
+            Text(cards.map { $0.rank.rawValue }.joined(separator: " "))
+                .foregroundColor((suit == .hearts || suit == .diamonds) ? .red : .primary)
+        }
+    }
+}
+
+private struct HandPanel<Content: View>: View {
+    let title: String
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.subheadline)
+                .foregroundColor(.white)
+            VStack(alignment: .leading, spacing: 4) {
+                content
+            }
+            .padding(10)
+            .background(Color.white.opacity(0.12))
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white.opacity(0.15), lineWidth: 1))
+            .cornerRadius(10)
+        }
     }
 }

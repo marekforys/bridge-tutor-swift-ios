@@ -56,6 +56,9 @@ class BridgeGameManager: ObservableObject {
         dealNewHand()
     }
 
+    // Read-only accessor for revealing all hands (e.g., post-auction review)
+    func allHands() -> [Player: Hand] { playerHands }
+
     func dealNewHand() {
         // Attempt biased dealing if a preset is set
         let attemptsLimit = 400
