@@ -2,7 +2,9 @@ import SwiftUI
 
 struct PracticeView: View {
     @EnvironmentObject var gameManager: BridgeGameManager
+    @Environment(\.dismiss) private var dismiss
     @State private var selectedBid: BidType? = nil
+    @State private var showingBidSheet: Bool = false
 
     var body: some View {
         VStack(spacing: 12) {
@@ -53,23 +55,49 @@ struct PracticeView: View {
                 }
 
                 HStack(spacing: 12) {
-                    Menu {
-                        // List only valid contracts to keep menu concise
-                        ForEach(1...7, id: \.self) { level in
-                            ForEach(Strain.allCases, id: \.self) { strain in
-                                let bid = BidType.contract(level: level, strain: strain)
-                                if gameManager.isValidBid(bid) {
-                                    Button(bid.displayName) { selectedBid = bid }
+                    Button(action: { showingBidSheet = true }) {
+                        HStack {
+                            if case .contract(let level, let strain) = selectedBid {
+                                Text("\(level)")
+                                suitIconImage(for: strain)
+                            } else {
+                                Text("Choose Bid")
+                            }
+                        }
+                        .font(.body)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(8)
+                    }
+                    .sheet(isPresented: $showingBidSheet) {
+                        NavigationView {
+                            List {
+                                ForEach(1...7, id: \.self) { level in
+                                    ForEach(Strain.allCases, id: \.self) { strain in
+                                        let bid = BidType.contract(level: level, strain: strain)
+                                        Button(action: {
+                                            if gameManager.isValidBid(bid) {
+                                                selectedBid = bid
+                                                showingBidSheet = false
+                                            }
+                                        }) {
+                                            HStack(spacing: 8) {
+                                                Text("\(level)")
+                                                suitSymbolText(for: strain)
+                                            }
+                                        }
+                                        .disabled(!gameManager.isValidBid(bid))
+                                    }
+                                }
+                            }
+                            .navigationTitle("Select Bid")
+                            .toolbar {
+                                ToolbarItem(placement: .cancellationAction) {
+                                    Button("Close") { showingBidSheet = false }
                                 }
                             }
                         }
-                    } label: {
-                        Text(selectedBid?.displayName ?? "Choose Bid")
-                            .font(.body)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(8)
                     }
 
                     Button("Bid") {
@@ -111,7 +139,8 @@ struct PracticeView: View {
                                     Text(bid.player.rawValue)
                                         .font(.caption)
                                         .foregroundColor(.secondary)
-                                    Text(bid.bid.displayName)
+                                    // Colored suits in history
+                                    coloredBidText(bid.bid.displayName)
                                         .font(.body)
                                 }
                                 .padding(8)
@@ -132,6 +161,86 @@ struct PracticeView: View {
         }
         .padding()
         .navigationTitle("Practice")
+    }
+}
+
+@ViewBuilder
+private func suitColorDot(for strain: Strain) -> some View {
+    let isRed = (strain == .hearts || strain == .diamonds)
+    Circle()
+        .fill(isRed ? Color.red : Color.primary)
+        .frame(width: 8, height: 8)
+}
+
+private func suitSymbolName(for strain: Strain) -> String? {
+    switch strain {
+    case .hearts: return "suit.heart.fill"
+    case .diamonds: return "suit.diamond.fill"
+    case .spades: return "suit.spade.fill"
+    case .clubs: return "suit.club.fill"
+    case .notrump: return nil
+    }
+}
+
+// MARK: - Helpers
+
+private func coloredBidText(_ text: String) -> Text {
+    var combined = Text("")
+    for scalar in text.unicodeScalars {
+        let ch = String(scalar)
+        let isRed = ch == "♥" || ch == "♦"
+        combined = combined + Text(ch).foregroundColor(isRed ? .red : .primary)
+    }
+    return combined
+}
+
+@ViewBuilder
+private func suitSymbolText(for strain: Strain) -> some View {
+    switch strain {
+    case .hearts:
+        Text("♥️")
+    case .diamonds:
+        Text("♦️")
+    case .spades:
+        Text("♠️")
+    case .clubs:
+        Text("♣️")
+    case .notrump:
+        Text("NT")
+    }
+}
+
+private func suitText(for strain: Strain) -> String {
+    switch strain {
+    case .hearts: return "♥"
+    case .diamonds: return "♦"
+    case .spades: return "♠"
+    case .clubs: return "♣"
+    case .notrump: return "NT"
+    }
+}
+
+@ViewBuilder
+private func suitIconImage(for strain: Strain) -> some View {
+    switch strain {
+    case .hearts:
+        Image(systemName: "suit.heart.fill").foregroundColor(.red)
+    case .diamonds:
+        Image(systemName: "suit.diamond.fill").foregroundColor(.red)
+    case .spades:
+        Image(systemName: "suit.spade.fill").foregroundColor(.primary)
+    case .clubs:
+        Image(systemName: "suit.club.fill").foregroundColor(.primary)
+    case .notrump:
+        Text("NT").foregroundColor(.primary)
+    }
+}
+
+@ViewBuilder
+private func menuBidLabel(level: Int, strain: Strain) -> some View {
+    HStack(spacing: 6) {
+        suitSymbolText(for: strain)
+        Text("\(level)")
     }
 }
 
