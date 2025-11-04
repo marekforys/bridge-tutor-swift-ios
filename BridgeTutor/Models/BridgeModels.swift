@@ -82,7 +82,7 @@ enum Rank: String, CaseIterable, Codable {
 }
 
 struct Card: Identifiable, Codable, Equatable {
-    let id = UUID()
+    var id = UUID()
     let suit: Suit
     let rank: Rank
 
@@ -92,7 +92,7 @@ struct Card: Identifiable, Codable, Equatable {
 
 // MARK: - Hand
 struct Hand: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     var cards: [Card]
 
     init(cards: [Card] = []) { self.cards = cards }
@@ -144,7 +144,7 @@ enum BidType: Codable, Equatable {
 }
 
 struct Bid: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let player: Player
     let bid: BidType
     let timestamp: Date

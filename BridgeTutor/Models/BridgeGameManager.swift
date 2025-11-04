@@ -51,7 +51,7 @@ class BridgeGameManager: ObservableObject {
         var found = false
         while attempt < attemptsLimit {
             attempt += 1
-            var shuffled = deck.shuffled()
+            let shuffled = deck.shuffled()
             var hands: [Player: [Card]] = [.north: [], .east: [], .south: [], .west: []]
             let order: [Player] = [.north, .east, .south, .west]
             var idx = 0
@@ -75,7 +75,7 @@ class BridgeGameManager: ObservableObject {
 
         if !found {
             // Fallback to random if preset was too strict
-            var shuffled = deck.shuffled()
+            let shuffled = deck.shuffled()
             var hands: [Player: [Card]] = [.north: [], .east: [], .south: [], .west: []]
             let order: [Player] = [.north, .east, .south, .west]
             var idx = 0
