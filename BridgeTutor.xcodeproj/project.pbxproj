@@ -35,6 +35,9 @@
 		EABA80822EB0AD08005D3974 /* BridgeTutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA80812EB0AD08005D3974 /* BridgeTutorTests.swift */; };
 		EABA808C2EB0AD08005D3974 /* BridgeTutorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA808B2EB0AD08005D3974 /* BridgeTutorUITests.swift */; };
 		EABA808E2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABA808D2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift */; };
+		EAF5A8452EBA69C6004FE418 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF5A8442EBA69C6004FE418 /* SplashView.swift */; };
+		EAF5A8462EBA69C6004FE418 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF5A8442EBA69C6004FE418 /* SplashView.swift */; };
+		EAF5A8472EBA69C6004FE418 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF5A8442EBA69C6004FE418 /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,7 @@
 		EABA80872EB0AD08005D3974 /* BridgeTutorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BridgeTutorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABA808B2EB0AD08005D3974 /* BridgeTutorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTutorUITests.swift; sourceTree = "<group>"; };
 		EABA808D2EB0AD08005D3974 /* BridgeTutorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeTutorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EAF5A8442EBA69C6004FE418 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 		EA2D53972EB0D0730047A4A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EAF5A8442EBA69C6004FE418 /* SplashView.swift */,
 				EA2D53942EB0D0730047A4A9 /* BiddingGuideView.swift */,
 				EA2D53952EB0D0730047A4A9 /* BiddingTutorialView.swift */,
 				EA2D53962EB0D0730047A4A9 /* PracticeView.swift */,
@@ -323,6 +328,7 @@
 				EA2D539B2EB0D0740047A4A9 /* BridgeModels.swift in Sources */,
 				EA2D539C2EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */,
 				EA2D539D2EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */,
+				EAF5A8472EBA69C6004FE418 /* SplashView.swift in Sources */,
 				EA2D539E2EB0D0740047A4A9 /* AppConfig.swift in Sources */,
 				EABA80712EB0AD04005D3974 /* BridgeTutorApp.swift in Sources */,
 			);
@@ -340,6 +346,7 @@
 				EA2D53A32EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */,
 				EA2D53A42EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */,
 				EA2D53A52EB0D0740047A4A9 /* AppConfig.swift in Sources */,
+				EAF5A8462EBA69C6004FE418 /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +361,7 @@
 				EA2D53A92EB0D0740047A4A9 /* BridgeModels.swift in Sources */,
 				EA2D53AA2EB0D0740047A4A9 /* BiddingTutorialView.swift in Sources */,
 				EA2D53AB2EB0D0740047A4A9 /* BridgeGameManager.swift in Sources */,
+				EAF5A8452EBA69C6004FE418 /* SplashView.swift in Sources */,
 				EA2D53AC2EB0D0740047A4A9 /* AppConfig.swift in Sources */,
 				EABA808C2EB0AD08005D3974 /* BridgeTutorUITests.swift in Sources */,
 			);
