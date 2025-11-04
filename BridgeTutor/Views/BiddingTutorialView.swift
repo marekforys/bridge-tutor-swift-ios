@@ -80,7 +80,7 @@ struct PolishClubTutorialView: View {
             }
 
             Section {
-                NavigationLink(destination: PracticeView()) {
+                NavigationLink(destination: PracticeWrapperView(preset: .polishClub)) {
                     HStack {
                         Spacer()
                         Text("Practice this")
@@ -109,6 +109,9 @@ struct ConventionsTutorialView: View {
                 coloredSuitText("2♥: shows 4♥ (may also hold 4♠)")
                 coloredSuitText("2♠: shows 4♠; with 4‑4 majors, bid 2♦ then 2♥ per style")
                 coloredSuitText("Responder: invite/game decisions based on fits and HCP")
+                NavigationLink(destination: PracticeWrapperView(preset: .stayman)) {
+                    HStack { Spacer(); Text("Practice Stayman").font(.subheadline).foregroundColor(.white).padding(.vertical, 6).padding(.horizontal, 12).background(Color.accentColor).cornerRadius(8); Spacer() }
+                }
             }
 
             Section(header: Text("Jacoby transfers over 1NT")) {
@@ -116,6 +119,9 @@ struct ConventionsTutorialView: View {
                 coloredSuitText("2♥: transfer to ♠; opener bids 2♠")
                 coloredSuitText("Responder follow‑ups: invite with 2NT/3M; GF with 3M or new suit")
                 coloredSuitText("Super‑accepts: opener may jump with 4‑card support and max")
+                NavigationLink(destination: PracticeWrapperView(preset: .jacobyTransfers)) {
+                    HStack { Spacer(); Text("Practice Jacoby Transfers").font(.subheadline).foregroundColor(.white).padding(.vertical, 6).padding(.horizontal, 12).background(Color.accentColor).cornerRadius(8); Spacer() }
+                }
             }
 
             Section(header: Text("RKCB 1430 (simplified)")) {
@@ -123,10 +129,13 @@ struct ConventionsTutorialView: View {
                 coloredSuitText("5♣: 1 or 4 keycards; 5♦: 0 or 3 keycards")
                 coloredSuitText("5♥: Q‑trump ask or specific king asks per partnership style")
                 coloredSuitText("Control bidding: cue first‑round controls before keycard when helpful")
+                NavigationLink(destination: PracticeWrapperView(preset: .rkcb)) {
+                    HStack { Spacer(); Text("Practice RKCB").font(.subheadline).foregroundColor(.white).padding(.vertical, 6).padding(.horizontal, 12).background(Color.accentColor).cornerRadius(8); Spacer() }
+                }
             }
 
             Section {
-                NavigationLink(destination: PracticeView()) {
+                NavigationLink(destination: PracticeWrapperView(preset: .twoOverOne)) {
                     HStack {
                         Spacer()
                         Text("Practice this")
@@ -164,6 +173,21 @@ struct StandardAmericanTutorialView: View {
                 coloredSuitText("New suit at 1‑level: 6+ HCP, 4+ suit; at 2‑level: 10+ HCP")
                 coloredSuitText("1NT response: 6–9 HCP, no good suit")
             }
+            Section {
+                NavigationLink(destination: PracticeWrapperView(preset: .standardAmerican)) {
+                    HStack {
+                        Spacer()
+                        Text("Practice this")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                        Spacer()
+                    }
+                }
+            }
         }
         .listStyle(.insetGrouped)
         .navigationTitle("Standard American")
@@ -186,11 +210,28 @@ struct TwoOverOneTutorialView: View {
                 coloredSuitText("Opener clarifies shape/strength; early minor‑suit 3‑level bids often GF")
                 coloredSuitText("Use cue‑bids/splinters to show shortness and slam interest")
             }
+            Section {
+                NavigationLink(destination: PracticeWrapperView(preset: .standardAmerican)) {
+                    HStack {
+                        Spacer()
+                        Text("Practice this")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                        Spacer()
+                    }
+                }
+            }
         }
         .listStyle(.insetGrouped)
         .navigationTitle("2/1 Game Forcing")
     }
 }
+
+// (Removed stray SystemsTutorialView)
 
 private func coloredSuitText(_ text: String) -> Text {
     var combined = Text("")
@@ -204,4 +245,21 @@ private func coloredSuitText(_ text: String) -> Text {
 #Preview {
     NavigationView { BiddingTutorialView() }
         .environmentObject(BridgeGameManager())
+}
+
+// Wrapper that sets a preset and launches PracticeView
+struct PracticeWrapperView: View {
+    @EnvironmentObject var gameManager: BridgeGameManager
+    let preset: PracticePreset
+
+    var body: some View {
+        PracticeView()
+            .onAppear {
+                gameManager.practicePreset = preset
+                gameManager.dealNewHand()
+            }
+            .onDisappear {
+                gameManager.practicePreset = nil
+            }
+    }
 }
