@@ -131,6 +131,7 @@ struct PracticeView: View {
                 HStack(spacing: 12) {
                     Button("Pass") { gameManager.makeBid(.pass) }
                         .buttonStyle(.bordered)
+                        .disabled(!gameManager.isValidBid(.pass))
 
                     Button("Double") { gameManager.makeBid(.double) }
                         .buttonStyle(.bordered)

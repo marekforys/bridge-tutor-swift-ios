@@ -171,10 +171,26 @@ class BridgeGameManager: ObservableObject {
     }
 
     private func isAuctionComplete() -> Bool {
-        // Completed when there is a contract followed by three passes
-        guard let lastContractIndex = biddingHistory.lastIndex(where: { $0.bid.isContract }) else { return false }
-        let tail = biddingHistory.suffix(from: biddingHistory.index(after: lastContractIndex))
-        return tail.count >= 3 && tail.allSatisfy { if case .pass = $0.bid { return true } else { return false } }
+        // Auction ends after any three consecutive passes once there has been a non-pass,
+        // or after four consecutive passes at the very start (passed out hand)
+        let count = biddingHistory.count
+        if count >= 3 {
+            let last3 = biddingHistory.suffix(3)
+            let last3ArePasses = last3.allSatisfy { if case .pass = $0.bid { return true } else { return false } }
+            if last3ArePasses {
+                // If there was any non-pass before these three passes, the auction is over
+                let prior = biddingHistory.dropLast(3)
+                let hadNonPassBefore = prior.contains { if case .pass = $0.bid { return false } else { return true } }
+                if hadNonPassBefore { return true }
+                // Otherwise we're at the start; require four passes to pass out the hand
+                if count >= 4 {
+                    let last4 = biddingHistory.suffix(4)
+                    let last4ArePasses = last4.allSatisfy { if case .pass = $0.bid { return true } else { return false } }
+                    if last4ArePasses { return true }
+                }
+            }
+        }
+        return false
     }
 
     private func lastNonPassBid() -> Bid? { biddingHistory.last(where: { if case .pass = $0.bid { return false } else { return true } }) }
@@ -190,6 +206,8 @@ class BridgeGameManager: ObservableObject {
     }
 
     func isValidBid(_ bidType: BidType) -> Bool {
+        // Prevent any further bidding after the auction is complete
+        if isAuctionComplete() { return false }
         if biddingHistory.isEmpty { return true }
         guard let lastBid = lastNonPassBid() else { return true }
 
