@@ -94,34 +94,74 @@ struct TutorialButton: View {
 }
 
 private struct SimpleCardView: View {
-    let text: String
+    let text: String   // e.g., "A♠", "K♥", "Q♦"
     let color: Color
+
+    private var rank: String {
+        // Everything except last scalar if that last is a suit
+        let suits: Set<Character> = ["♠","♥","♦","♣"]
+        if let last = text.last, suits.contains(last) {
+            return String(text.dropLast())
+        }
+        return text
+    }
+
+    private var suit: String {
+        let suits: Set<Character> = ["♠","♥","♦","♣"]
+        if let last = text.last, suits.contains(last) {
+            return String(last)
+        }
+        return "♠"
+    }
+
+    private var isRed: Bool { suit == "♥" || suit == "♦" }
 
     var body: some View {
         ZStack {
+            // Card base
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(Color.white)
                 .shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
 
-            Text(text)
-                .font(.system(size: 28, weight: .semibold))
-                .foregroundColor(.primary)
-                .overlay(
-                    coloredCardText(text)
-                        .font(.system(size: 28, weight: .semibold))
-                )
+            // Corner indices
+            VStack {
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(rank)
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(isRed ? .red : .primary)
+                        Text(suit)
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(isRed ? .red : .primary)
+                    }
+                    .padding(8)
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Spacer()
+                    VStack(alignment: .trailing, spacing: 2) {
+                        Text(rank)
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(isRed ? .red : .primary)
+                            .rotationEffect(.degrees(180))
+                        Text(suit)
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(isRed ? .red : .primary)
+                            .rotationEffect(.degrees(180))
+                    }
+                    .padding(8)
+                }
+            }
+
+            // No central art: minimalist card showing only corner indices
         }
         .frame(width: 90, height: 120)
     }
 }
 
-private func coloredCardText(_ text: String) -> Text {
-    var result = Text("")
-    for ch in text {
-        let t = Text(String(ch)).foregroundColor((ch == "♥" || ch == "♦") ? .red : .primary)
-        result = result + t
-    }
-    return result
+private func isRedSuit(_ text: String) -> Bool {
+    text.contains("♥") || text.contains("♦")
 }
 
 #Preview {
